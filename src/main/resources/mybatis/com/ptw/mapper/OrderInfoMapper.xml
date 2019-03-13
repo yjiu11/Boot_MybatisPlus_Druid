@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ptw.mapper.OrderInfoMapper"> 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ptw.pojo.OrderInfo">
+        <result column="orderNo" property="orderNo" />
+        <result column="teamNo" property="teamNo" />
+        <result column="saleName" property="saleName" />
+        <result column="TempletID" property="TempletID" />
+        <result column="team_leader" property="teamLeader" />
+        <result column="ground_connection" property="groundConnection" />
+        <result column="person_number" property="personNumber" />
+        <result column="driver_name" property="driverName" />
+        <result column="nationality" property="nationality" />
+        <result column="tel_phone" property="telPhone" />
+        <result column="car_type" property="carType" />
+        <result column="Feedback_num" property="feedbackNum" />
+        <result column="qr_image_path" property="qr_image_path" />
+    </resultMap>
+    <select id="getAll" resultType="com.ptw.pojo.OrderInfo">
+    	 SELECT o.OrderId as orderid,
+                o.OrderCode as orderNo,
+                o.UserName as saleName,
+                o.OrderStatus as Status,
+                o.OrderStatusDesc as OrderStatus,
+                o.CompanyId,
+                isnull(o.TurnStatus,'') as TurnStatus,
+                a.EmployeeLoginName as saleLoginName,
+                p.ProjectCode as teamNo,
+                o.CustomerName as CustomerName
+		  FROM realtourr8.dbo.OrderInfo  o
+		  left join realtourr8.dbo.SysEmployeebasicinfo a on o.UserId=a.EmployeeID 
+		  left join realtourr8.dbo.Project p on o.ProjectId=p.ProjectID
+		  where o.OrderStatus=2  
+    </select>
+    <select id="getByOrderNo_TeamNo" resultType="com.ptw.pojo.OrderInfo" parameterType="string">
+    	 SELECT o.OrderId as orderid,
+                o.OrderCode as orderNo,
+                o.UserName as saleName,
+                o.OrderStatus as Status,
+                o.OrderStatusDesc as OrderStatus,
+                o.CompanyId,
+                isnull(o.TurnStatus,'') as TurnStatus,
+                a.EmployeeLoginName as saleLoginName,
+                p.ProjectCode as teamNo,
+                o.CustomerName as CustomerName
+		  FROM realtourr8.dbo.OrderInfo  o
+		  left join realtourr8.dbo.SysEmployeebasicinfo a on o.UserId=a.EmployeeID 
+		  left join realtourr8.dbo.Project p on o.ProjectId=p.ProjectID
+		  where o.OrderStatus=2 and o.OrderCode=#{orderNo} and p.ProjectCode=#{teamNo}
+    </select>
+	<select id="getByTime" resultType="com.ptw.pojo.OrderInfo" parameterType="string">
+		  SELECT o.OrderId as orderid,
+                o.OrderCode as orderNo,
+                o.UserName as saleName,
+                o.OrderStatus as Status,
+                o.OrderStatusDesc as OrderStatus,
+                o.CompanyId,
+                isnull(o.TurnStatus,'') as TurnStatus,
+                a.EmployeeLoginName as saleLoginName,
+                p.ProjectCode as teamNo,
+                o.CustomerName as CustomerName
+		  FROM realtourr8.dbo.OrderInfo  o
+		  left join realtourr8.dbo.SysEmployeebasicinfo a on o.UserId=a.EmployeeID 
+		  left join realtourr8.dbo.Project p on o.ProjectId=p.ProjectID
+		  where o.OrderStatus=2 and o.LastModifiedDate>=#{time}
+	</select>
+	<select id="getByStartAndEnd" resultType="com.ptw.pojo.OrderInfo" parameterType="string">
+		 SELECT o.OrderId as orderid,
+                o.OrderCode as orderNo,
+                o.UserName as saleName,
+                o.OrderStatus as Status,
+                o.OrderStatusDesc as OrderStatus,
+                o.CompanyId,
+                isnull(o.TurnStatus,'') as TurnStatus,
+                a.EmployeeLoginName as saleLoginName,
+                p.ProjectCode as teamNo,
+                o.CustomerName as CustomerName
+		  FROM realtourr8.dbo.OrderInfo  o
+		  left join realtourr8.dbo.SysEmployeebasicinfo a on o.UserId=a.EmployeeID 
+		  left join realtourr8.dbo.Project p on o.ProjectId=p.ProjectID
+		  where o.OrderStatus=2 and o.LastModifiedDate &gt;= #{startTime} and o.LastModifiedDate &lt;= #{endTime}
+	</select>
+</mapper>

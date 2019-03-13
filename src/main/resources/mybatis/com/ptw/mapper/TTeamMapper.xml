@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ptw.mapper.TTeamMapper">
+
+    <!-- 开启二级缓存
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ptw.pojo.TTeam">
+        <id column="line_name" property="lineName" />
+        <result column="team_no" property="teamNo" />
+        <result column="go_time" property="goTime" />
+        <result column="back_time" property="backTime" />
+        <result column="TempletID" property="TempletID" />
+        <result column="team_leader" property="teamLeader" />
+        <result column="ground_connection" property="groundConnection" />
+        <result column="person_number" property="personNumber" />
+        <result column="driver_name" property="driverName" />
+        <result column="nationality" property="nationality" />
+        <result column="tel_phone" property="telPhone" />
+        <result column="car_type" property="carType" />
+        <result column="Feedback_num" property="feedbackNum" />
+        <result column="qr_image_path" property="qr_image_path" />
+        <result column="qr_image_path_leader" property="qr_image_path_leader" />
+        <result column="TempletID_leader" property="TempletID_leader" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        team_id AS teamId, line_name AS lineName,team_no AS teamNo,go_time AS goTime,back_time AS backTime,TempletID AS TempletID, team_leader AS teamLeader, ground_connection AS groundConnection, person_number AS personNumber, driver_name AS driverName, nationality AS nationality, tel_phone AS telPhone, car_type AS carType ,Feedback_num as feedbackNum,qr_image_path AS qr_image_path,qr_image_path_leader AS qr_image_path_leader,TempletID_leader AS TempletID_leader
+    </sql>
+	<select id="getAll2" resultMap="BaseResultMap">
+		select * from t_team
+	</select>
+</mapper>

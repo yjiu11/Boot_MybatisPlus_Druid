@@ -1,0 +1,51 @@
+server:
+  port: 7001
+  servlet:
+    session:
+      timeout:
+        7200
+logging:
+  level:
+    root: info
+    com: # 根据本地包修改日志级别
+      ptw: 
+        mapper: debug
+spring:
+  #session: 
+   # store-type: none
+  thymeleaf: 
+    cache: false
+  datasource:
+      druid: 
+        mysql:  #DataSourceEnum的值
+            username: root
+            password: mysqladmin
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://10.10.130.16:3306/mini_qa
+            initialSize: 5
+            minIdle: 5
+            maxActive: 20
+        sqlserver: #DataSourceEnum的值
+            username: realtour
+            password: BJ333YCFXzyzHY
+            driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+            url: jdbc:sqlserver://172.16.2.239:1433;Databasename=RealTourR8
+            initialSize: 5
+            minIdle: 5
+            maxActive: 20
+  #jackson: 
+   # date-format: yyyy-MM-dd
+  profiles: 
+    active: dev
+---
+spring:
+  profiles: dev #开发环境
+system-params: 
+  imagePath: E://image//
+  filePath: E://
+---
+spring:
+  profiles: release #开发环境
+system-params: 
+  imagePath: /home/image/
+  filePath: /home/file/
